@@ -1,5 +1,5 @@
-<template>
-  <Tutorial/>
+<template lang="pug">
+  div hello
 </template>
 
 <script>
