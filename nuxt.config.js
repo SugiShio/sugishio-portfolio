@@ -39,10 +39,23 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    // https://go.nuxtjs.dev/axios
-    '@nuxtjs/axios',
-  ],
+  modules: ['@nuxtjs/axios', '@nuxtjs/firebase'],
+
+  firebase: {
+    config: {
+      apiKey: 'AIzaSyCeDLqLfXOgEWoLRP-gIKbWmVslay8hEaE',
+      authDomain: 'sugishio-portfolio.firebaseapp.com',
+      projectId: 'sugishio-portfolio',
+      storageBucket: 'sugishio-portfolio.appspot.com',
+      messagingSenderId: '366955785394',
+      appId: '1:366955785394:web:eac5a93645a4520e486dab',
+      measurementId: 'G-2XJS4FDNQ2',
+    },
+    services: {
+      auth: true,
+      firestore: true,
+    },
+  },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {},
