@@ -1,7 +1,11 @@
 <template lang="pug">
-main.s-index
-  .s-index__image
-    img(:src='src')
+.s-index
+  transition-group.s-index__image-container(name='fade')
+    template(v-for='(image, index) in images')
+      .s-index__image(
+        v-show='imageIndex === index'
+        :key='image.url'
+        :style='{ backgroundImage: `url(${image.url})` }')
   section.s-index__section
     ul.s-index__articles
       li.s-index__article(v-for='article in articles')
@@ -18,6 +22,7 @@ import Article from '~/models/article'
 import Image from '~/models/image'
 import profileCard from '~/components/molecules/profileCard.vue'
 let db = null
+let imageLotatorTimer = null
 
 export default {
   name: 'PageIndex',
@@ -26,21 +31,26 @@ export default {
     return {
       profile: null,
       images: [],
+      imageIndex: 0,
       articles: [],
     }
   },
-  computed: {
-    src() {
-      return this.images.length ? this.images[0].url : ''
-    },
-  },
-  created() {
+  async created() {
     db = this.$fire.firestore
-    this.fetchImages()
+    await this.fetchImages()
+    this.setImageLotator()
     this.fetchArticles()
     this.fetchGlobalConfig('profile')
   },
+  beforeDestroy() {
+    clearInterval(imageLotatorTimer)
+  },
   methods: {
+    setImageLotator() {
+      imageLotatorTimer = setInterval(() => {
+        this.imageIndex = (this.imageIndex + 1) % this.images.length
+      }, 8000)
+    },
     fetchArticles() {
       db.collection('articles')
         .limit(3)
@@ -77,15 +87,26 @@ export default {
 
 <style lang="scss">
 .s-index {
-  &__image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  &__image-container {
+    display: block;
+    position: relative;
     height: 41.4vw;
-    overflow: hidden;
+  }
+  &__image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
-    img {
-      width: 100%;
+    &.fade-enter-active,
+    &.fade-leave-active {
+      transition: opacity 1s ease;
+    }
+    &.fade-enter,
+    &.fade-leave-to {
+      opacity: 0;
     }
   }
   &__section {
