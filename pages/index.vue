@@ -12,6 +12,8 @@
         nuxt-link(:to='{ name: "articles-id", params: { id: article.id }}')
           time.s-index__article-time {{ article.createdAtText }}
           div {{ article.title }}
+    .s-index__link(v-if='articles.length')
+      nuxt-link(:to='{ name: "articles"}') more
   section.s-index__section(v-if='profile')
     profile-card(:profile='profile')
 
@@ -55,6 +57,7 @@ export default {
       db.collection('articles')
         .limit(3)
         .orderBy('publishedAt')
+        .where('isDraft', '==', false)
         .get()
         .then((articles) => {
           articles.forEach((article) => {
