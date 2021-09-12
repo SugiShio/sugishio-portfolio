@@ -8,13 +8,15 @@ article.s-article(v-if='article')
     | updated at:&nbsp;
     time {{ article.updatedAtText }}
 
-  section.s-article__body {{ article.body }}
+  section.s-article__body(v-html='markedBody')
   div author
   profile-card(v-if='profile' :profile='profile')
 
 </template>
 
 <script>
+import DOMPurify from 'dompurify'
+import marked from 'marked'
 import Article from '~/models/article'
 import profileCard from '~/components/molecules/profileCard.vue'
 let db = null
@@ -27,6 +29,13 @@ export default {
       article: null,
       profile: null,
     }
+  },
+  computed: {
+    markedBody() {
+      return marked(
+        DOMPurify.sanitize(this.article.body.replace(/(\\n|<br>)/g, '\n'))
+      )
+    },
   },
   created() {
     db = this.$fire.firestore
