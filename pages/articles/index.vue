@@ -4,7 +4,7 @@
     ul.s-articles__articles
       li.s-articles__article(v-for='article in articles')
         nuxt-link(:to='{ name: "articles-id", params: { id: article.id }}')
-          time.s-articles__article-time {{ article.createdAtText }}
+          time.s-articles__article-time {{ article.publishedAtText }}
           div {{ article.title }}
   section.s-articles__section(v-if='profile')
     profile-card(:profile='profile')
@@ -35,9 +35,9 @@ export default {
   methods: {
     fetchArticles() {
       db.collection('articles')
-        .limit(3)
-        .orderBy('publishedAt')
         .where('isDraft', '==', false)
+        .orderBy('publishedAt', 'desc')
+        .limit(10)
         .get()
         .then((articles) => {
           articles.forEach((article) => {

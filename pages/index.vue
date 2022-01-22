@@ -56,7 +56,7 @@ export default {
     fetchArticles() {
       db.collection('articles')
         .limit(3)
-        .orderBy('publishedAt')
+        .orderBy('publishedAt', 'desc')
         .where('isDraft', '==', false)
         .get()
         .then((articles) => {
