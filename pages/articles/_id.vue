@@ -64,6 +64,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/stylesheets/utils';
+
 .s-article {
   &__title {
     font-size: 24px;
@@ -74,6 +76,7 @@ export default {
   }
   &__body {
     margin: 50px 0;
+    @extend .markdown;
   }
 }
 </style>
