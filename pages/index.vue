@@ -12,7 +12,7 @@
         nuxt-link(:to='{ name: "articles-id", params: { id: article.id }}')
           time.s-index__article-time {{ article.createdAtText }}
           div {{ article.title }}
-    .s-index__link(v-if='articles.length')
+    //- .s-index__link(v-if='articles.length')
       nuxt-link(:to='{ name: "articles"}') more
   section.s-index__section(v-if='profile')
     molecules-profile-card(:profile='profile')
