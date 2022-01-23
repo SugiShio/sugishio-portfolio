@@ -68,8 +68,9 @@ export default {
     fetchImages() {
       const storage = this.$fire.storage
       const storageRef = storage.ref()
+      const aspect = window.innerWidth < 600 ? 'square' : 'wide'
       db.collection('images')
-        .where('aspect', '==', 'wide')
+        .where('aspect', '==', aspect)
         .get()
         .then((images) => {
           images.forEach((image) => {
@@ -95,11 +96,16 @@ export default {
 </script>
 
 <style lang="scss">
+@import '@/assets/stylesheets/utils';
+
 .s-index {
   &__image-container {
     display: block;
     position: relative;
-    height: 41.4vw;
+    height: calc(100vw - 80px);
+    @include screen-pc {
+      height: 41.4vw;
+    }
   }
   &__image {
     position: absolute;
