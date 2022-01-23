@@ -18,12 +18,11 @@ article.s-article(v-if='article')
 import DOMPurify from 'dompurify'
 import marked from 'marked'
 import Article from '~/models/article'
-import profileCard from '~/components/molecules/profileCard.vue'
+
 let db = null
 
 export default {
-  name: 'PageArticle',
-  components: { profileCard },
+  name: 'PagesArticlesId',
   data() {
     return {
       article: null,

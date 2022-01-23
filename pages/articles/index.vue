@@ -7,18 +7,16 @@
           time.s-articles__article-time {{ article.publishedAtText }}
           div {{ article.title }}
   section.s-articles__section(v-if='profile')
-    profile-card(:profile='profile')
+    molecules-profile-card(:profile='profile')
 
 </template>
 
 <script>
 import Article from '~/models/article'
-import profileCard from '~/components/molecules/profileCard.vue'
 let db = null
 
 export default {
-  name: 'PageIndex',
-  components: { profileCard },
+  name: 'PagesArticlesIndex',
   data() {
     return {
       profile: null,

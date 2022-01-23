@@ -15,19 +15,18 @@
     .s-index__link(v-if='articles.length')
       nuxt-link(:to='{ name: "articles"}') more
   section.s-index__section(v-if='profile')
-    profile-card(:profile='profile')
+    molecules-profile-card(:profile='profile')
 
 </template>
 
 <script>
 import Article from '~/models/article'
-import profileCard from '~/components/molecules/profileCard.vue'
+
 let db = null
 let imageLotatorTimer = null
 
 export default {
-  name: 'PageIndex',
-  components: { profileCard },
+  name: 'PagesIndex',
   data() {
     return {
       profile: null,
