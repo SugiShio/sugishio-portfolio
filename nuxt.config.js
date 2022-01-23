@@ -2,6 +2,7 @@ import Sass from 'sass'
 import Fiber from 'fibers'
 
 export default {
+  ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'sugishio-portfolio',
