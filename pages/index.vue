@@ -4,8 +4,8 @@
     template(v-for='(image, index) in images')
       .s-index__image(
         v-show='imageIndex === index'
-        :key='image.url'
-        :style='{ backgroundImage: `url(${image.url})` }')
+        :key='image'
+        :style='{ backgroundImage: `url(${image})` }')
   section.s-index__section
     ul.s-index__articles
       li.s-index__article(v-for='article in articles')
@@ -21,7 +21,6 @@
 
 <script>
 import Article from '~/models/article'
-import Image from '~/models/image'
 import profileCard from '~/components/molecules/profileCard.vue'
 let db = null
 let imageLotatorTimer = null
@@ -68,11 +67,19 @@ export default {
         })
     },
     fetchImages() {
+      const storage = this.$fire.storage
+      const storageRef = storage.ref()
       db.collection('images')
+        .where('aspect', '==', 'wide')
         .get()
         .then((images) => {
           images.forEach((image) => {
-            this.images.push(new Image(image.data()))
+            storageRef
+              .child(image.data().filePath)
+              .getDownloadURL()
+              .then((url) => {
+                this.images.push(url)
+              })
           })
         })
     },
