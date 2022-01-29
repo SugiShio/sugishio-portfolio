@@ -57,14 +57,12 @@ export default {
         .then((doc) => {
           this.profile = doc.data()
         })
-    },
-  },
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-@import '@/assets/stylesheets/utils';
-
 .s-article {
   &__title {
     font-size: 24px;

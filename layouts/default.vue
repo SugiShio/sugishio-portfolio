@@ -11,19 +11,17 @@ export default {
   computed: {
     deviceType() {
       return this.$store.state.deviceType
-    },
+    }
   },
   methods: {
     backPage() {
       this.$router.go(-1)
-    },
-  },
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-@import '@/assets/stylesheets/utils';
-
 .s-l-default {
   &__main {
     padding: 40px;

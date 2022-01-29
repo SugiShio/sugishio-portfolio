@@ -3,7 +3,6 @@ section.s-profile(v-if='profile')
   .s-profile__name {{ profile.displayName }}
   .s-profile__copy {{ profile.copy }}
   .s-profile__body(v-html='markedBody')
-
 </template>
 
 <script>
@@ -32,13 +31,11 @@ export default {
       .then((doc) => {
         this.profile = doc.data()
       })
-  },
+  }
 }
 </script>
 
 <style lang="scss">
-@import '@/assets/stylesheets/utils';
-
 .s-profile {
   &__name {
     font-size: 24px;

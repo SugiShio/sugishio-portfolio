@@ -90,14 +90,12 @@ export default {
         .then((doc) => {
           this.profile = doc.data()
         })
-    },
-  },
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-@import '@/assets/stylesheets/utils';
-
 .s-index {
   &__image-container {
     display: block;

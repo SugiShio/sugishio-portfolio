@@ -52,8 +52,8 @@ export default {
         .then((doc) => {
           this.profile = doc.data()
         })
-    },
-  },
+    }
+  }
 }
 </script>
 

@@ -7,19 +7,19 @@ export default {
   head: {
     title: 'sugishio-portfolio',
     htmlAttrs: {
-      lang: 'en',
+      lang: 'en'
     },
     meta: [
       { charset: 'utf-8' },
       {
         name: 'viewport',
         content:
-          'width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no',
+          'width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no'
       },
       { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' },
+      { name: 'format-detection', content: 'telephone=no' }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
@@ -37,6 +37,7 @@ export default {
     '@nuxtjs/eslint-module',
     // https://go.nuxtjs.dev/stylelint
     '@nuxtjs/stylelint-module',
+    '@nuxtjs/style-resources'
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
@@ -50,13 +51,13 @@ export default {
       storageBucket: 'sugishio-portfolio.appspot.com',
       messagingSenderId: '366955785394',
       appId: '1:366955785394:web:eac5a93645a4520e486dab',
-      measurementId: 'G-2XJS4FDNQ2',
+      measurementId: 'G-2XJS4FDNQ2'
     },
     services: {
       auth: true,
       firestore: true,
-      storage: true,
-    },
+      storage: true
+    }
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -68,9 +69,16 @@ export default {
       scss: {
         implementation: Sass,
         sassOptions: {
-          fiber: Fiber,
-        },
-      },
-    },
+          fiber: Fiber
+        }
+      }
+    }
   },
+
+  styleResources: {
+    scss: [
+      '@/assets/stylesheets/variables.scss',
+      '@/assets/stylesheets/utils.scss'
+    ]
+  }
 }
