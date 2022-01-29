@@ -15,6 +15,10 @@ export default {
 </script>
 <style lang="scss">
 .s-profile-card {
+  transition: opacity 0.3s;
+  &:hover {
+    opacity: 0.6;
+  }
   &__copy {
     font-size: 13px;
   }

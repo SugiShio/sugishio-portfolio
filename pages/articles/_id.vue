@@ -1,6 +1,9 @@
 <template lang="pug">
 article.s-article(v-if='article')
   h1.s-article__title {{ article.title }}
+  ul.s-article__tags(v-if='article.tags.length')
+    li.s-article__tag(v-for='tag in article.tags')
+      atoms-tag(:text='tag', @click='goToArticles(tag)')
   .s-article__time
     template(v-if='article.updatedAtText') created at:&nbsp;
     time {{ article.createdAtText }}
@@ -9,9 +12,11 @@ article.s-article(v-if='article')
     time {{ article.updatedAtText }}
 
   section.s-article__body(v-html='markedBody')
-  div author
-  profile-card(v-if='profile' :profile='profile')
 
+  section.s-article__author
+    h2.s-article__label author
+    .s-article__profile
+      molecules-profile-card(v-if='profile', :profile='profile')
 </template>
 
 <script>
@@ -42,6 +47,9 @@ export default {
     this.fetchGlobalConfig('profile')
   },
   methods: {
+    goToArticles(tag) {
+      this.$router.push({ name: 'articles', query: { tag } })
+    },
     fetchArticle(id) {
       db.collection('articles')
         .doc(id)
@@ -57,8 +65,8 @@ export default {
         .then((doc) => {
           this.profile = doc.data()
         })
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -67,13 +75,32 @@ export default {
   &__title {
     font-size: 24px;
   }
+  &__tags {
+    margin: 5px 0;
+  }
+  &__tag {
+    display: inline-block;
+    & + & {
+      margin-left: 10px;
+    }
+  }
   &__time {
     display: block;
-    font-size: 10px;
+    font-size: 13px;
   }
   &__body {
     margin: 50px 0;
     @extend .markdown;
+  }
+  &__author {
+    margin: 50px 0;
+  }
+  &__label {
+    display: block;
+    font-size: 13px;
+  }
+  &__profile {
+    margin: 10px 0;
   }
 }
 </style>
