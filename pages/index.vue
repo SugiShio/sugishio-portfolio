@@ -66,20 +66,14 @@ export default {
         })
     },
     fetchImages() {
-      const storage = this.$fire.storage
-      const storageRef = storage.ref()
       const aspect = window.innerWidth < 600 ? 'square' : 'wide'
       db.collection('images')
         .where('aspect', '==', aspect)
         .get()
         .then((images) => {
           images.forEach((image) => {
-            storageRef
-              .child(image.data().filePath)
-              .getDownloadURL()
-              .then((url) => {
-                this.images.push(url)
-              })
+            const url = image.data().url
+            this.images.push(url)
           })
         })
     },
