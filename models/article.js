@@ -6,6 +6,7 @@ export default class Article {
     this.title = params.title || 'no title'
     this.body = params.body || ''
     this.tags = params.tags || []
+    this.isDraft = params.isDraft || true
     this.createdAt = new SDate(
       params.createdAt && params.createdAt.seconds * 1000
     )
