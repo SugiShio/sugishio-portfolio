@@ -95,6 +95,7 @@ export default {
     display: block;
     position: relative;
     height: calc(100vw - 80px);
+    background-color: #f5f5f5;
     @include screen-pc {
       height: 41.4vw;
     }
