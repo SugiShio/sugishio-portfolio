@@ -29,4 +29,14 @@ export default class Article {
   get updatedAtText() {
     return this.updatedAt && this.updatedAt.dateText
   }
+
+  get postFormat() {
+    const result = {}
+    Object.keys(this)
+      .filter((key) => this[key] !== undefined)
+      .forEach((key) => {
+        result[key] = (this[key] && this[key].dateObject) || this[key]
+      })
+    return result
+  }
 }
