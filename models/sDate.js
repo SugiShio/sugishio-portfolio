@@ -1,7 +1,7 @@
 export default class SDate {
-  constructor(timestamp = 0) {
+  constructor(timestamp) {
     this.timestamp = timestamp
-    this.dateObject = new Date(this.timestamp)
+    this.dateObject = timestamp ? new Date(timestamp) : new Date()
   }
 
   get year() {
