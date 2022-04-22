@@ -1,12 +1,16 @@
 import SDate from '~/models/sDate'
 
+const getBooleanValue = (value) => {
+  return typeof value === 'boolean' ? value : true
+}
+
 export default class Article {
   constructor(params = {}) {
     this.id = params.id
     this.title = params.title || 'no title'
     this.body = params.body || ''
     this.tags = params.tags || []
-    this.isDraft = params.isDraft || true
+    this.isDraft = getBooleanValue(params.isDraft)
     this.createdAt = new SDate(
       params.createdAt && params.createdAt.seconds * 1000
     )
