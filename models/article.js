@@ -39,7 +39,10 @@ export default class Article {
     Object.keys(this)
       .filter((key) => this[key] !== undefined)
       .forEach((key) => {
-        result[key] = (this[key] && this[key].dateObject) || this[key]
+        if (this[key].dateObject) result[key] = this[key].dateObject
+        else if (Array.isArray(this[key])) {
+          result[key] = this[key].filter((v) => v)
+        } else result[key] = this[key]
       })
     return result
   }
