@@ -8,7 +8,7 @@ export default class Article {
   constructor(params = {}) {
     this.id = params.id
     this.title = params.title || 'no title'
-    this.body = params.body || ''
+    this.body = params.body ? params.body.replace(/\\n/g, '\n') : ''
     this.tags = params.tags || []
     this.isDraft = getBooleanValue(params.isDraft)
     this.createdAt = new SDate(
