@@ -41,7 +41,10 @@ export default {
   methods: {
     fetchArticles() {
       const tag = this.$route.query.tag
-      let query = db.collection('articles').where('isDraft', '==', false)
+      let query = db
+        .collection('articles')
+        .where('isDraft', '==', false)
+        .where('password', '==', '')
       if (tag) {
         query = query.where('tags', 'array-contains', tag)
       }
