@@ -56,6 +56,7 @@ export default {
         .limit(3)
         .orderBy('publishedAt', 'desc')
         .where('isDraft', '==', false)
+        .where('password', '==', '')
         .get()
         .then((articles) => {
           articles.forEach((article) => {
