@@ -11,11 +11,14 @@ export default class Article {
     this.body = params.body ? params.body.replace(/\\n/g, '\n') : ''
     this.tags = params.tags || []
     this.isDraft = getBooleanValue(params.isDraft)
+    this.password = params.password || ''
     this.createdAt = new SDate(
       params.createdAt && params.createdAt.seconds * 1000
     )
     if (params.publishedAt) {
       this.publishedAt = new SDate(params.publishedAt.seconds * 1000)
+    } else {
+      this.publishedAt = this.createdAt
     }
     if (params.updatedAt) {
       this.updatedAt = new SDate(params.updatedAt.seconds * 1000)
@@ -32,6 +35,10 @@ export default class Article {
 
   get updatedAtText() {
     return this.updatedAt && this.updatedAt.dateText
+  }
+
+  get isPasswordRequired() {
+    return this.password !== ''
   }
 
   get postFormat() {
