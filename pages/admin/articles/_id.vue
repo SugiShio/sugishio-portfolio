@@ -13,6 +13,9 @@ section.s-admin-articles
   molecules-form-item(label='Is draft')
     atoms-checkbox(v-model='article.isDraft')
 
+  molecules-form-item(label='password')
+    atoms-input-text(v-model='article.password')
+
   molecules-form-item(label='Images')
     input(type='file', multiple, @change='uploadFile')
     ul
