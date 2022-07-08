@@ -1,36 +1,33 @@
 <template lang="pug">
 section.s-admin-articles
   p {{ message.body }}
-  dl.s-admin-articles
-    dt Title
-    dd
-      input(v-model='article.title')
-    dt Body
-    dd
-      textarea(v-model='article.body', rows='5')
-      div(v-html='markedBody')
-    dt Tags
-    dd
-      input(v-model='article.tags')
-    dt Is draft
-    dd
-      input(type='checkbox', v-model='article.isDraft')
+  molecules-form-item(label='Title')
+    atoms-input-text(v-model='article.title')
 
-    dt
-    dd
-      input(type='file', multiple, @change='uploadFile')
-      ul
-        li(v-for='url in fileUrls')
-          img(:src='url')
-          div {{ url }}
-    dt
-    dd
-      button(type='button', @click='post') {{ buttonText }}
+  molecules-form-item(label='Body')
+    atoms-textarea-markdown(v-model='article.body', :rows='5')
+
+  molecules-form-item(label='Tags')
+    molecules-input-tags(v-model='article.tags')
+
+  molecules-form-item(label='Is draft')
+    atoms-checkbox(v-model='article.isDraft')
+
+  molecules-form-item(label='password')
+    atoms-input-text(v-model='article.password')
+
+  molecules-form-item(label='Images')
+    input(type='file', multiple, @change='uploadFile')
+    ul
+      li(v-for='url in fileUrls')
+        img(:src='url')
+        div {{ url }}
+
+  molecules-form-item
+    button(type='button', @click='post') {{ buttonText }}
 </template>
 
 <script>
-import DOMPurify from 'dompurify'
-import marked from 'marked'
 import Article from '~/models/article'
 
 let db = null
@@ -54,11 +51,6 @@ export default {
     },
     isNew() {
       return this.id === 'new'
-    },
-    markedBody() {
-      return marked(
-        DOMPurify.sanitize(this.article.body.replace(/(\\n|<br>)/g, '\n'))
-      )
     },
   },
   created() {
