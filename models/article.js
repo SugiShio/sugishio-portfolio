@@ -10,16 +10,17 @@ export default class Article {
     this.title = params.title || 'no title'
     this.body = params.body ? params.body.replace(/\\n/g, '\n') : ''
     this.tags = params.tags || []
+    this.password = params.password || ''
     this.isDraft = getBooleanValue(params.isDraft)
     this.password = params.password || ''
     this.createdAt = new SDate(
       params.createdAt && params.createdAt.seconds * 1000
     )
-    if (params.publishedAt) {
-      this.publishedAt = new SDate(params.publishedAt.seconds * 1000)
-    } else {
-      this.publishedAt = this.createdAt
-    }
+
+    this.publishedAt = params.publishedAt
+      ? new SDate(params.publishedAt.seconds * 1000)
+      : this.createdAt
+
     if (params.updatedAt) {
       this.updatedAt = new SDate(params.updatedAt.seconds * 1000)
     }
@@ -46,10 +47,13 @@ export default class Article {
     Object.keys(this)
       .filter((key) => this[key] !== undefined)
       .forEach((key) => {
-        if (this[key].dateObject) result[key] = this[key].dateObject
-        else if (Array.isArray(this[key])) {
+        if (this[key].dateObject) {
+          result[key] = this[key].dateObject
+        } else if (Array.isArray(this[key])) {
           result[key] = this[key].filter((v) => v)
-        } else result[key] = this[key]
+        } else {
+          result[key] = this[key]
+        }
       })
     return result
   }

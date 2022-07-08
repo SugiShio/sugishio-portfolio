@@ -1,5 +1,4 @@
 import Sass from 'sass'
-import Fiber from 'fibers'
 
 export default {
   ssr: false,
@@ -67,10 +66,7 @@ export default {
   build: {
     loaders: {
       scss: {
-        implementation: Sass,
-        sassOptions: {
-          fiber: Fiber
-        }
+        implementation: Sass
       }
     }
   },
