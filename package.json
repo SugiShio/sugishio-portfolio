@@ -38,7 +38,7 @@
     "babel-jest": "^28.1.2",
     "eslint": "^7.29.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-nuxt": "^2.0.0",
+    "eslint-plugin-nuxt": "^3.2.0",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-vue": "^9.2.0",
     "husky": "^8.0.1",
