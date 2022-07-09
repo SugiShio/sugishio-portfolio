@@ -56,13 +56,33 @@ const getCookieValue = (key) => {
 
 export default {
   name: 'PagesArticlesId',
+  async asyncData({ app, route }) {
+    db = app.$fire.firestore
+    const id = route.params.id
+    let article = ''
+
+    await db
+      .collection('articles')
+      .doc(id)
+      .get()
+      .then((doc) => {
+        article = new Article({ id: doc.id, ...doc.data() })
+      })
+    return { article }
+  },
   data() {
     return {
-      article: null,
       isPasswordValid: true,
       isPermitted: true,
       password: '',
       profile: null,
+    }
+  },
+  head() {
+    return {
+      meta: [
+        { hid: 'og:title', property: 'og:title', content: this.article.title },
+      ],
     }
   },
   computed: {
@@ -71,22 +91,12 @@ export default {
     },
   },
   created() {
-    db = this.$fire.firestore
-    this.fetchArticle(this.$route.params.id)
+    this.setIsPermitted()
     this.fetchGlobalConfig('profile')
   },
   methods: {
     goToArticles(tag) {
       this.$router.push({ name: 'articles', query: { tag } })
-    },
-    fetchArticle(id) {
-      db.collection('articles')
-        .doc(id)
-        .get()
-        .then((article) => {
-          this.article = new Article({ id: article.id, ...article.data() })
-          this.setIsPermitted()
-        })
     },
     fetchGlobalConfig(docId) {
       db.collection('globalConfig')
