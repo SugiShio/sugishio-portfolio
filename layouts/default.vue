@@ -27,7 +27,9 @@ export default {
 <style lang="scss">
 .s-l-default {
   &__main {
+    margin: 0 auto;
     padding: 40px;
+    max-width: 162vh;
 
     @include screen-pc {
       padding: 80px;
