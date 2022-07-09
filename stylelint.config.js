@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['stylelint-config-standard', 'stylelint-config-prettier'],
+  extends: ['stylelint-config-recommended', 'stylelint-config-prettier'],
   ignoreFiles: ['assets/fonts/**/*'],
   rules: {
     'at-rule-no-unknown': [
