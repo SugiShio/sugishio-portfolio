@@ -101,6 +101,7 @@ export default {
       height: 41.4vw;
     }
   }
+
   &__image {
     position: absolute;
     width: 100%;
@@ -113,17 +114,21 @@ export default {
     &.fade-leave-active {
       transition: opacity 1s ease;
     }
+
     &.fade-enter,
     &.fade-leave-to {
       opacity: 0;
     }
   }
+
   &__section {
     margin: 80px 0;
   }
+
   &__article {
     margin: 20px 0;
   }
+
   &__article-time {
     display: block;
     font-size: 10px;

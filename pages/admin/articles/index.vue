@@ -7,7 +7,7 @@ section.s-admin-articles
 
 <script>
 import DOMPurify from 'dompurify'
-import marked from 'marked'
+import { marked } from 'marked'
 import Article from '~/models/article'
 
 let db = null
@@ -50,35 +50,44 @@ export default {
 }
 </script>
 
+
 <style lang="scss">
 .s-admin-article {
   &__title {
     font-size: 24px;
   }
+
   &__tags {
     margin: 5px 0;
   }
+
   &__tag {
     display: inline-block;
+
     & + & {
       margin-left: 10px;
     }
   }
+
   &__time {
     display: block;
     font-size: 13px;
   }
+
   &__body {
     margin: 50px 0;
     @extend .markdown;
   }
+
   &__author {
     margin: 50px 0;
   }
+
   &__label {
     display: block;
     font-size: 13px;
   }
+
   &__profile {
     margin: 10px 0;
   }

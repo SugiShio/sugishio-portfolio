@@ -77,13 +77,16 @@ export default {
   &__section {
     margin: 80px 0;
   }
+
   &__article {
     margin: 20px 0;
     transition: opacity 0.3s;
+
     &:hover {
       opacity: 0.6;
     }
   }
+
   &__article-time {
     display: block;
     font-size: 10px;

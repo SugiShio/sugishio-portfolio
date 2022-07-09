@@ -40,9 +40,10 @@ article.s-article(v-if='article')
         molecules-profile-card(v-if='profile', :profile='profile')
 </template>
 
+
 <script>
 import DOMPurify from 'dompurify'
-import marked from 'marked'
+import { marked } from 'marked'
 import Article from '~/models/article'
 
 let db = null
@@ -120,42 +121,50 @@ export default {
 }
 </script>
 
+
 <style lang="scss">
 .s-article {
   &__password-title {
     text-align: center;
     margin: 30px 0;
   }
+
   &__password-form {
     display: flex;
     align-items: center;
     justify-content: center;
   }
+
   &__password-input {
     @extend %input;
 
     width: 200px;
   }
+
   &__password-button {
     margin-left: 15px;
     color: $color-theme;
     font-size: 20px;
     line-height: 1;
     transition: opacity 0.3s;
+
     &:hover {
       opacity: 0.5;
     }
   }
+
   &__error {
     height: 1.6em;
     margin: 10px 0;
     text-align: center;
     color: $color-jinzamomi;
     font-size: 13px;
+
     .fade-enter-active,
     .fade-leave-active {
       transition: opacity 0.2s ease;
     }
+
     .fade-enter,
     .fade-leave-to {
       opacity: 0;
@@ -165,35 +174,44 @@ export default {
   &__title {
     font-size: 24px;
   }
+
   &__lock {
     vertical-align: middle;
     margin-left: 5px;
     font-size: 20px;
   }
+
   &__tags {
     margin: 5px 0;
   }
+
   &__tag {
     display: inline-block;
+
     & + & {
       margin-left: 10px;
     }
   }
+
   &__time {
     display: block;
     font-size: 13px;
   }
+
   &__body {
     margin: 50px 0;
     @extend .markdown;
   }
+
   &__author {
     margin: 50px 0;
   }
+
   &__label {
     display: block;
     font-size: 13px;
   }
+
   &__profile {
     margin: 10px 0;
   }

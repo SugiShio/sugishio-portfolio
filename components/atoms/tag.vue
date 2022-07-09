@@ -19,6 +19,7 @@ export default {
   line-height: 1.3;
   transition: opacity 0.3s;
   cursor: pointer;
+
   &::before {
     content: '';
     width: 100%;
@@ -31,8 +32,10 @@ export default {
     transition: transform 0.3s;
     transform-origin: left;
   }
+
   &:hover {
     opacity: 0.6;
+
     &::before {
       transform: scale(1, 1);
     }

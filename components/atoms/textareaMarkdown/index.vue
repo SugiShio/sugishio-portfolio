@@ -12,7 +12,7 @@
 
 <script>
 import DOMPurify from 'dompurify'
-import marked from 'marked'
+import { marked } from 'marked'
 
 export default {
   name: 'AtomsInputText',

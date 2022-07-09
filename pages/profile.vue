@@ -5,9 +5,10 @@ section.s-profile(v-if='profile')
   .s-profile__body(v-html='markedBody')
 </template>
 
+
 <script>
 import DOMPurify from 'dompurify'
-import marked from 'marked'
+import { marked } from 'marked'
 
 export default {
   name: 'PageProfile',
@@ -40,9 +41,11 @@ export default {
   &__name {
     font-size: 24px;
   }
+
   &__copy {
     margin: 50px 0;
   }
+
   &__body {
     @extend .markdown;
   }

@@ -22,16 +22,20 @@ export default {
 .s-profile-card {
   &__link {
     transition: opacity 0.3s;
+
     &:hover {
       opacity: 0.6;
     }
   }
+
   &__copy {
     font-size: 13px;
   }
+
   &__accounts {
     margin: 20px 0;
   }
+
   &__account {
     display: inline-block;
     width: 24px;
@@ -43,6 +47,7 @@ export default {
       opacity: 1;
       filter: saturate(100%);
     }
+
     & + & {
       margin-left: 10px;
     }
