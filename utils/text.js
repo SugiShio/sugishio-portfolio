@@ -1,5 +1,13 @@
 import DOMPurify from 'dompurify'
 import { marked } from 'marked'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/tokyo-night-dark.css'
+
+marked.setOptions({
+  highlight: function (code, lang) {
+    return hljs.highlightAuto(code, [lang]).value
+  },
+})
 
 export class Text {
   constructor(string) {
@@ -7,7 +15,7 @@ export class Text {
   }
 
   static markText(string) {
-    string = marked(string)
+    string = marked.parse(string)
     return this.sanitize(string)
   }
 
