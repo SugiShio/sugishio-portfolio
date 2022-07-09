@@ -40,11 +40,9 @@ article.s-article(v-if='article')
         molecules-profile-card(v-if='profile', :profile='profile')
 </template>
 
-
 <script>
-import DOMPurify from 'dompurify'
-import { marked } from 'marked'
 import Article from '~/models/article'
+import { Text } from '~/utils/text'
 
 let db = null
 const getCookieValue = (key) => {
@@ -69,9 +67,7 @@ export default {
   },
   computed: {
     markedBody() {
-      return marked(
-        DOMPurify.sanitize(this.article.body.replace(/(\\n|<br>)/g, '\n'))
-      )
+      return Text.markText(this.article.body)
     },
   },
   created() {
@@ -120,7 +116,6 @@ export default {
   },
 }
 </script>
-
 
 <style lang="scss">
 .s-article {
