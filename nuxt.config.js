@@ -80,5 +80,9 @@ export default {
       '@/assets/stylesheets/variables.scss',
       '@/assets/stylesheets/utils.scss'
     ]
+  },
+
+  router: {
+    middleware: 'setDefaultMetaInformation'
   }
 }

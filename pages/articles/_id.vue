@@ -56,55 +56,84 @@ const getCookieValue = (key) => {
 
 export default {
   name: 'PagesArticlesId',
-  async asyncData({ app, route }) {
+  async asyncData({ app, route, store }) {
     db = app.$fire.firestore
     const id = route.params.id
-    let article = ''
+    const data = {
+      article: null,
+      profile: null,
+      meta: store.state.metaInformation.metaInformation.nuxtFormat
+    }
 
-    await db
-      .collection('articles')
-      .doc(id)
-      .get()
-      .then((doc) => {
-        article = new Article({ id: doc.id, ...doc.data() })
+    try {
+      await db
+        .collection('articles')
+        .doc(id)
+        .get()
+        .then((doc) => {
+          data.article = new Article({ id: doc.id, ...doc.data() })
+        })
+
+      await db
+        .collection('globalConfig')
+        .doc('profile')
+        .get()
+        .then((doc) => {
+          data.profile = doc.data()
+        })
+
+      store.dispatch('metaInformation/updateMetaInformation', {
+        key: 'title',
+        value: data.article.title
       })
-    return { article }
+      store.dispatch('metaInformation/updateMetaInformation', {
+        key: 'type',
+        value: 'article'
+      })
+      store.dispatch('metaInformation/updateMetaInformation', {
+        key: 'twitterCard',
+        value: 'summary'
+      })
+      const twitterAccount = data.profile.accounts.find(
+        (account) => account.name === 'twitter'
+      )
+      if (twitterAccount) {
+        store.dispatch('metaInformation/updateMetaInformation', {
+          key: 'twitterSite',
+          value: twitterAccount.accountName
+        })
+      }
+
+      data.meta = store.state.metaInformation.metaInformation.nuxtFormat
+    } catch {}
+
+    return data
   },
   data() {
     return {
       isPasswordValid: true,
       isPermitted: true,
-      password: '',
-      profile: null,
+      password: ''
     }
   },
   head() {
+    const siteName = this.$store.state.metaInformation.metaInformation.siteName
     return {
-      meta: [
-        { hid: 'og:title', property: 'og:title', content: this.article.title },
-      ],
+      title: `${this.article.title} - ${siteName}`,
+      meta: this.meta
     }
   },
   computed: {
     markedBody() {
       return Text.markText(this.article.body)
-    },
+    }
   },
   created() {
     this.setIsPermitted()
-    this.fetchGlobalConfig('profile')
   },
   methods: {
     goToArticles(tag) {
       this.$router.push({ name: 'articles', query: { tag } })
-    },
-    fetchGlobalConfig(docId) {
-      db.collection('globalConfig')
-        .doc(docId)
-        .get()
-        .then((doc) => {
-          this.profile = doc.data()
-        })
     },
     setIsPermitted() {
       const cookieKey = `SugiShioPortfolioArticle-${this.article.id}`
@@ -122,8 +151,8 @@ export default {
       document.cookie = `${name}=${value}; max-age=${maxAge}`
 
       this.isPermitted = true
-    },
-  },
+    }
+  }
 }
 </script>
 
