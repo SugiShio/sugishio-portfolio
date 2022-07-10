@@ -40,7 +40,11 @@ export default {
   ],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: ['@nuxtjs/axios', '@nuxtjs/firebase'],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/firebase',
+    ['@nuxtjs/google-gtag', { id: 'G-2XJS4FDNQ2' }]
+  ],
 
   firebase: {
     config: {
