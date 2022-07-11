@@ -58,7 +58,7 @@ const getCookieValue = (key) => {
 
 export default {
   name: 'PagesArticlesId',
-  async asyncData({ app, route, store }) {
+  async asyncData({ app, route }) {
     db = app.$fire.firestore
     const id = route.params.id
     const data = {
@@ -97,21 +97,17 @@ export default {
       pageMetaParams.twitterSite = twitterAccount.accountName
     }
     meta.marge(pageMetaParams)
-    return { ...data, meta }
+    const siteName = meta.siteName
+    const title = [data.article.title, siteName].filter((v) => v).join(' - ')
+    app.head.title = title
+    app.head.meta = meta.nuxtFormat
+    return data
   },
   data() {
     return {
       isPasswordValid: true,
       isPermitted: true,
       password: ''
-    }
-  },
-  head() {
-    const siteName = this.meta.siteName
-    const title = [this.article.title, siteName].filter((v) => v).join(' - ')
-    return {
-      title,
-      meta: this.meta.nuxtFormat
     }
   },
   computed: {

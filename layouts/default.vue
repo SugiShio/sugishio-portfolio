@@ -4,7 +4,7 @@
     nuxt
   footer.s-l-default__footer
     .s-l-default__footer-title
-      nuxt-link(:to='{ name: "index" }') SugiShio Portforio
+      nuxt-link(:to='{ name: "index" }') SugiShio Portfolio
     span.s-l-default__copyright © SugiShio
 </template>
 
