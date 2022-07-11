@@ -14,13 +14,13 @@ export default {
   computed: {
     deviceType() {
       return this.$store.state.deviceType
-    },
+    }
   },
   methods: {
     backPage() {
       this.$router.go(-1)
-    },
-  },
+    }
+  }
 }
 </script>
 

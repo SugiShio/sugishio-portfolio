@@ -42,7 +42,7 @@ export default {
     title() {
       const tag = this.$route.query.tag
       return tag ? `Tag: ${tag}` : 'Articles'
-    },
+    }
   },
   created() {
     db = this.$fire.firestore
@@ -78,8 +78,8 @@ export default {
         .then((doc) => {
           this.profile = doc.data()
         })
-    },
-  },
+    }
+  }
 }
 </script>
 

@@ -6,7 +6,7 @@ import 'highlight.js/styles/tokyo-night-dark.css'
 marked.setOptions({
   highlight: function (code, lang) {
     return hljs.highlightAuto(code, [lang]).value
-  },
+  }
 })
 
 export class Text {
