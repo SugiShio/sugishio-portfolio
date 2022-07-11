@@ -43,9 +43,11 @@ article.s-article(v-if='article')
 <script>
 import Article from '~/models/article'
 import { Text } from '~/utils/text'
+import { MetaInformation } from '~/utils/metaInformation'
 
 let db = null
 const getCookieValue = (key) => {
+  if (process.server) return
   const cookies = document.cookie
   const cookiesArray = cookies.split(';')
   const result = cookiesArray.find((cookie) => {
@@ -61,8 +63,7 @@ export default {
     const id = route.params.id
     const data = {
       article: null,
-      profile: null,
-      meta: store.state.metaInformation.metaInformation.nuxtFormat
+      profile: null
     }
 
     try {
@@ -81,33 +82,22 @@ export default {
         .then((doc) => {
           data.profile = doc.data()
         })
-
-      store.dispatch('metaInformation/updateMetaInformation', {
-        key: 'title',
-        value: data.article.title
-      })
-      store.dispatch('metaInformation/updateMetaInformation', {
-        key: 'type',
-        value: 'article'
-      })
-      store.dispatch('metaInformation/updateMetaInformation', {
-        key: 'twitterCard',
-        value: 'summary'
-      })
-      const twitterAccount = data.profile.accounts.find(
-        (account) => account.name === 'twitter'
-      )
-      if (twitterAccount) {
-        store.dispatch('metaInformation/updateMetaInformation', {
-          key: 'twitterSite',
-          value: twitterAccount.accountName
-        })
-      }
-
-      data.meta = store.state.metaInformation.metaInformation.nuxtFormat
     } catch {}
 
-    return data
+    const meta = MetaInformation.metaInformationFromHeadConfig(app.head.meta)
+    const pageMetaParams = {
+      title: data.article.title,
+      type: 'article',
+      twitterCard: 'summary'
+    }
+    const twitterAccount = data.profile.accounts.find(
+      (account) => account.name === 'twitter'
+    )
+    if (twitterAccount) {
+      pageMetaParams.twitterSite = twitterAccount.accountName
+    }
+    meta.marge(pageMetaParams)
+    return { ...data, meta }
   },
   data() {
     return {
@@ -117,10 +107,11 @@ export default {
     }
   },
   head() {
-    const siteName = this.$store.state.metaInformation.metaInformation.siteName
+    const siteName = this.meta.siteName
+    const title = [this.article.title, siteName].filter((v) => v).join(' - ')
     return {
-      title: `${this.article.title} - ${siteName}`,
-      meta: this.meta
+      title,
+      meta: this.meta.nuxtFormat
     }
   },
   computed: {
@@ -142,6 +133,7 @@ export default {
         !this.article.isPasswordRequired
     },
     submitPassword() {
+      if (process.server) return
       this.isPasswordValid = this.password === this.article.password
       if (!this.isPasswordValid) return
 

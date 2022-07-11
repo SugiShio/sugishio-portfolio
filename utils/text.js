@@ -20,6 +20,6 @@ export class Text {
   }
 
   static sanitize(string) {
-    return DOMPurify.sanitize(string)
+    return process.client ? DOMPurify.sanitize(string) : ''
   }
 }

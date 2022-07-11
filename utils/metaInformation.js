@@ -1,13 +1,30 @@
+const META_INFORMATION_SETS = [
+  { key: 'siteName', regex: /.*site_name$/ },
+  { key: 'title', regex: /.*title$/ },
+  { key: 'description', regex: /.*description$/ },
+  { key: 'url', regex: /.*url$/ },
+  { key: 'type', regex: /.*type$/ },
+  { key: 'image', regex: /.*image$/ },
+  {
+    key: 'twitterCard',
+    regex: /^twitter:card$/,
+    defaultValue: 'summary_large_image'
+  },
+  { key: 'twitterSite', regex: /^twitter:site$/ }
+]
 export class MetaInformation {
   constructor(params = {}) {
-    this.siteName = params.siteName || ''
-    this.title = params.title || this.siteName
-    this.description = params.description || ''
-    this.url = params.url || ''
-    this.type = params.type || ''
-    this.image = params.image || ''
-    this.twitterCard = params.twitterCard || 'summary_large_image'
-    this.twitterSite = params.twitterSite || ''
+    META_INFORMATION_SETS.forEach((item) => {
+      this[item.key] = params[item.key] || item.defaultValue || null
+    })
+  }
+
+  marge(params = {}) {
+    META_INFORMATION_SETS.forEach((item) => {
+      if (params[item.key]) {
+        this[item.key] = params[item.key]
+      }
+    })
   }
 
   get nuxtFormat() {
@@ -75,5 +92,18 @@ export class MetaInformation {
     }
 
     return meta
+  }
+
+  static metaInformationFromHeadConfig(headConfig) {
+    const metaInformation = {}
+    const reversedHeadConfig = headConfig.reverse()
+    META_INFORMATION_SETS.forEach((set) => {
+      const item = reversedHeadConfig.find((configItem) =>
+        set.regex.test(configItem.hid)
+      )
+      metaInformation[set.key] = item ? item.content : ''
+    })
+
+    return new this(metaInformation)
   }
 }

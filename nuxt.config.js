@@ -1,7 +1,7 @@
 import Sass from 'sass'
 
 export default {
-  ssr: false,
+  ssr: true,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'SugiShio Portfolio',
@@ -15,7 +15,6 @@ export default {
         content:
           'width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no'
       },
-      { hid: 'description', name: 'description', content: '' },
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]

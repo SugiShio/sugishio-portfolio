@@ -1,12 +1,14 @@
-export default async ({ app, store }) => {
+import { MetaInformation } from '~/utils/metaInformation'
+
+export default async ({ app }) => {
   const db = app.$fire.firestore
   await db
     .collection('globalConfig')
     .doc('metaInformation')
     .get()
     .then((doc) => {
-      store.commit('metaInformation/setMetaInformation', {
-        metaInformation: doc.data()
-      })
+      const data = doc.data()
+      app.head.title = data.title
+      app.head.meta = new MetaInformation(data).nuxtFormat
     })
 }
