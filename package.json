@@ -9,7 +9,6 @@
     "generate": "nuxt generate",
     "lint:js": "eslint --ext \".js,.vue\" --ignore-path .gitignore .",
     "lint:style": "stylelint \"**/*.{vue,css}\" --ignore-path .gitignore",
-    "prepare": "husky install",
     "lint": "yarn lint:js && yarn lint:style",
     "test": "jest",
     "vercel-build": "yarn generate"
@@ -25,6 +24,7 @@
     "core-js": "^3.23.3",
     "dompurify": "^2.3.8",
     "firebase": "^8.10.1",
+    "highlight.js": "^11.5.1",
     "marked": "^4.0.17",
     "nuxt": "^2.15.7"
   },
@@ -43,7 +43,6 @@
     "eslint-plugin-nuxt": "^3.2.0",
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-vue": "^9.2.0",
-    "highlight.js": "^11.5.1",
     "husky": "^8.0.1",
     "jest": "^28.1.2",
     "lint-staged": "^13.0.3",
