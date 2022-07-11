@@ -19,12 +19,6 @@ let db = null
 
 export default {
   name: 'PagesArticlesIndex',
-  asyncData({ store }) {
-    return {
-      meta: store.state.metaInformation.metaInformation.nuxtFormat
-    }
-  },
-
   data() {
     return {
       profile: null,
