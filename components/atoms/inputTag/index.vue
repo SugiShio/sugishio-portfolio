@@ -50,7 +50,6 @@ export default {
   &__tag {
     display: inline-block;
     width: 100%;
-    // min-width: 100px;
     padding: 5px 10px;
     background-color: $color-lightgray;
     border-radius: 5px;

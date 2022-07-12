@@ -11,7 +11,6 @@ article.s-article(v-if='article')
       )
       button.s-article__password-button(type='button', @click='submitPassword')
         i.icon-plane
-        //- img(src='~/assets/images/plane.svg')
     p.s-article__error
       transition(name='fade')
         span(v-show='!isPasswordValid')
