@@ -127,6 +127,28 @@ export default {
     margin: 80px 0;
   }
 
+  &__link {
+    a {
+      position: relative;
+      padding-right: 20px;
+      transition: opacity 0.3s;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: -3px;
+        right: 3px;
+        margin: auto;
+        width: 7px;
+        height: 7px;
+        border-top: 1px solid $color-text-weak;
+        border-right: 1px solid $color-text-weak;
+        transform: rotate(45deg);
+      }
+    }
+  }
+
   &__article,
   &__link {
     margin: 20px 0;

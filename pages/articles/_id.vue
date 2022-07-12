@@ -1,5 +1,8 @@
 <template lang="pug">
 article.s-article(v-if='article')
+  .s-article__back-link
+    nuxt-link(:to='{ name: "articles" }') All articles
+
   template(v-if='!isPermitted')
     .s-article__password-title
       | Password
@@ -145,6 +148,33 @@ export default {
 
 <style lang="scss">
 .s-article {
+  &__back-link {
+    a {
+      position: relative;
+      padding-left: 20px;
+      transition: opacity 0.3s;
+      color: $color-text-weak;
+
+      &:hover {
+        opacity: 0.6;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: -3px;
+        left: 3px;
+        margin: auto;
+        width: 7px;
+        height: 7px;
+        border-left: 1px solid $color-text-weak;
+        border-bottom: 1px solid $color-text-weak;
+        transform: rotate(45deg);
+      }
+    }
+  }
+
   &__password-title {
     text-align: center;
     margin: 30px 0;
@@ -193,6 +223,7 @@ export default {
   }
 
   &__title {
+    margin-top: 30px;
     font-size: 24px;
   }
 
