@@ -13,8 +13,8 @@
         nuxt-link(:to='{ name: "articles-id", params: { id: article.id } }')
           time.s-index__article-time {{ article.createdAtText }}
           div {{ article.title }}
-    //- .s-index__link(v-if='articles.length')
-      nuxt-link(:to='{ name: "articles"}') more
+    .s-index__link(v-if='articles.length')
+      nuxt-link(:to='{ name: "articles" }') More articles
   section.s-index__section(v-if='profile')
     molecules-profile-card(:profile='profile')
 </template>
@@ -127,8 +127,36 @@ export default {
     margin: 80px 0;
   }
 
-  &__article {
+  &__link {
+    a {
+      position: relative;
+      padding-right: 20px;
+      transition: opacity 0.3s;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: -3px;
+        right: 3px;
+        margin: auto;
+        width: 7px;
+        height: 7px;
+        border-top: 1px solid $color-text-weak;
+        border-right: 1px solid $color-text-weak;
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  &__article,
+  &__link {
     margin: 20px 0;
+    transition: opacity 0.3s;
+
+    &:hover {
+      opacity: 0.6;
+    }
   }
 
   &__article-time {
