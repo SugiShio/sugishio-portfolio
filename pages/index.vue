@@ -32,7 +32,7 @@ export default {
       profile: null,
       images: [],
       imageIndex: 0,
-      articles: [],
+      articles: []
     }
   },
   async created() {
@@ -67,6 +67,7 @@ export default {
         })
     },
     fetchImages() {
+      if (process.server) return
       const aspect = window.innerWidth < 600 ? 'square' : 'wide'
       db.collection('images')
         .where('aspect', '==', aspect)
@@ -85,8 +86,8 @@ export default {
         .then((doc) => {
           this.profile = doc.data()
         })
-    },
-  },
+    }
+  }
 }
 </script>
 
