@@ -1,10 +1,6 @@
 <template lang="pug">
 .s-l-admin
-  header
-    div(v-if='isSignin', @click='signOut')
-      | {{ displayName }}
-    div(v-else, @click='goToSignin')
-      | Signin
+  organisms-admin-header
   main.s-l-admin__main
     nuxt(v-if='isSignin')
 </template>
@@ -15,11 +11,7 @@ export default {
   computed: {
     isSignin() {
       return this.$store.getters['admin/isSignin']
-    },
-    displayName() {
-      const user = this.$store.state.admin.user
-      return user && user.displayName
-    },
+    }
   },
   async created() {
     const auth = this.$fire.auth
