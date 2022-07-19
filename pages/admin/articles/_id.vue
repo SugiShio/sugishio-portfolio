@@ -24,7 +24,7 @@ section.s-admin-articles
         div {{ url }}
 
   molecules-form-item
-    button(type='button', @click='post') {{ buttonText }}
+    atoms-button(@button-clicked='post', :text='buttonText')
 </template>
 
 <script>
@@ -39,7 +39,7 @@ export default {
     return {
       article: new Article(),
       fileUrls: [],
-      message: { body: '', type: null },
+      message: { body: '', type: null }
     }
   },
   computed: {
@@ -51,7 +51,7 @@ export default {
     },
     isNew() {
       return this.id === 'new'
-    },
+    }
   },
   created() {
     db = this.$fire.firestore
@@ -64,7 +64,7 @@ export default {
         .then((docRef) => {
           this.$router.push({
             name: 'admin-articles-id',
-            params: { id: docRef.id },
+            params: { id: docRef.id }
           })
           console.log('Document written with ID: ', docRef.id)
         })
@@ -120,8 +120,8 @@ export default {
       } else {
         this.updateArticle()
       }
-    },
-  },
+    }
+  }
 }
 </script>
 
