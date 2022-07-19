@@ -29,6 +29,7 @@ export default {
       margin-right: 20px;
       width: 150px;
       text-align: right;
+      line-height: normal;
     }
   }
 

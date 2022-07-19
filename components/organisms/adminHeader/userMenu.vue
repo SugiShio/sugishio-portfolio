@@ -76,7 +76,7 @@ export default {
     text-align: left;
 
     &:hover {
-      background-color: rgba($color-tokinezu, 0.2);
+      background-color: $color-tokinezu-weak;
     }
   }
 }

@@ -49,7 +49,7 @@ export default {
 .o-admin-header {
   position: relative;
   display: flex;
-  justify-content: end;
+  justify-content: flex-end;
   padding: 10px 20px;
   background-color: $color-tokinezu;
 
