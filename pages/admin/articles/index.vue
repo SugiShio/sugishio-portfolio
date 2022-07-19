@@ -1,13 +1,16 @@
 <template lang="pug">
 section.s-admin-articles
   ul
-    li(v-for='article in articles', @click='goToDetail(article.id)')
-      | {{ article.title }}
+    li.s-admin-articles__item(v-for='article in articles')
+      nuxt-link.s-admin-articles__link(:to='goToDetail(article.id)')
+        .s-admin-articles__article-title
+          | {{ article.title }}
+          span.s-admin-articles__lock(v-if='article.isPasswordRequired')
+            i.icon-lock
+        time.s-admin-articles__article-row {{ createdAtText(article) }}
 </template>
 
 <script>
-import DOMPurify from 'dompurify'
-import { marked } from 'marked'
 import Article from '~/models/article'
 
 let db = null
@@ -17,26 +20,23 @@ export default {
   layout: 'admin',
   data() {
     return {
-      articles: [],
+      articles: []
     }
-  },
-  computed: {
-    markedBody() {
-      return marked(
-        DOMPurify.sanitize(this.article.body.replace(/(\\n|<br>)/g, '\n'))
-      )
-    },
   },
   created() {
     db = this.$fire.firestore
     this.fetchArticles()
   },
   methods: {
+    createdAtText(article) {
+      return article.createdAt.formattedDate('YYYY/MM/DD HH:hh')
+    },
     goToDetail(id) {
-      this.$router.push({ name: 'admin-articles-id', params: { id } })
+      return { name: 'admin-articles-id', params: { id } }
     },
     fetchArticles() {
       db.collection('articles')
+        .orderBy('createdAt')
         .get()
         .then((articles) => {
           articles.forEach((article) => {
@@ -45,51 +45,45 @@ export default {
             )
           })
         })
-    },
-  },
+    }
+  }
 }
 </script>
 
-
 <style lang="scss">
-.s-admin-article {
-  &__title {
-    font-size: 24px;
-  }
+.s-admin-articles {
+  &__link {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    cursor: pointer;
+    transition: color 0.3s;
 
-  &__tags {
-    margin: 5px 0;
-  }
-
-  &__tag {
-    display: inline-block;
-
-    & + & {
-      margin-left: 10px;
+    &:hover {
+      color: $color-tokinezu;
     }
   }
 
-  &__time {
-    display: block;
-    font-size: 13px;
+  &__article-title,
+  &__article-row {
+    padding: 0 10px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 
-  &__body {
-    margin: 50px 0;
-    @extend .markdown;
+  &__article-title {
+    flex-grow: 1;
   }
 
-  &__author {
-    margin: 50px 0;
+  &__article-row {
+    flex-shrink: 0;
+    min-width: 20%;
   }
 
-  &__label {
-    display: block;
-    font-size: 13px;
-  }
-
-  &__profile {
-    margin: 10px 0;
+  &__lock {
+    vertical-align: middle;
+    margin-left: 5px;
   }
 }
 </style>
