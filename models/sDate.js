@@ -1,3 +1,5 @@
+import dayjs from 'dayjs'
+
 export default class SDate {
   constructor(timestamp) {
     this.timestamp = timestamp
@@ -20,7 +22,7 @@ export default class SDate {
     return this.dateObject.getDay()
   }
 
-  get dateText() {
-    return `${this.year}.${this.month}.${this.date}`
+  formattedDate(format = 'YYYY.M.D') {
+    return dayjs(this.dateObject).format(format)
   }
 }

@@ -27,15 +27,15 @@ export default class Article {
   }
 
   get createdAtText() {
-    return this.createdAt.dateText
+    return this.createdAt.formattedDate()
   }
 
   get publishedAtText() {
-    return this.publishedAt.dateText
+    return this.publishedAt.formattedDate()
   }
 
   get updatedAtText() {
-    return this.updatedAt && this.updatedAt.dateText
+    return this.updatedAt && this.updatedAt.formattedDate()
   }
 
   get isPasswordRequired() {
