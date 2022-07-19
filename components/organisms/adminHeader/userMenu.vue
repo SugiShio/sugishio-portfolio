@@ -35,7 +35,9 @@ export default {
       this.$fire.auth.signOut()
     },
     goToSetting() {
-      alert('Sorry, setting page is under constructing...')
+      this.$router.push({
+        name: 'admin-settings'
+      })
     }
   }
 }
