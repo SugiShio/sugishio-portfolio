@@ -1,13 +1,12 @@
 <template lang="pug">
 .a-textarea-markdown
-  button(type='button', @click='isEdit = !isEdit') {{ toggleIsEditButtonText }}
   .a-textarea-markdown__container
     textarea.a-textarea-markdown__textarea(
-      v-if='isEdit',
       :value='value',
       @input='$emit("input", $event.target.value)'
     )
-    .a-textarea-markdown__preview(v-else, v-html='markedValue')
+  .a-textarea-markdown__container
+    .a-textarea-markdown__preview(v-html='markedValue')
 </template>
 
 <script>
@@ -17,40 +16,40 @@ export default {
   name: 'AtomsInputText',
   props: {
     value: { type: String, default: '' },
-    rows: { type: Number, default: 5 },
-  },
-  data() {
-    return {
-      isEdit: true,
-    }
+    rows: { type: Number, default: 5 }
   },
   computed: {
     markedValue() {
       return Text.markText(this.value)
-    },
-    toggleIsEditButtonText() {
-      return this.isEdit ? 'Preview' : 'Edit'
-    },
-  },
+    }
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .a-textarea-markdown {
+  display: flex;
+  height: 500px;
+  max-height: 50vh;
+
   &__container {
-    height: 500px;
+    width: 100%;
     overflow: scroll;
+
+    & + & {
+      margin-left: 20px;
+    }
   }
 
   &__textarea {
     @extend %input;
+    display: block;
+    width: 100%;
     height: 100%;
   }
 
   &__preview {
     padding: 5px 10px;
-    border: 1px solid #eee;
-    border-radius: 5px;
   }
 }
 </style>
