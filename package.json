@@ -22,7 +22,7 @@
     "@nuxtjs/firebase": "^7.6.1",
     "@nuxtjs/google-gtag": "^1.0.4",
     "core-js": "^3.23.3",
-    "dompurify": "^2.3.8",
+    "dompurify": "^2.4.0",
     "firebase": "^8.10.1",
     "marked": "^4.0.17",
     "nuxt": "^2.15.7"
