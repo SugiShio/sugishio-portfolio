@@ -37,20 +37,24 @@ export default {
   methods: {
     goToSignin() {
       this.$router.push({
-        name: 'admin-signin',
+        name: 'admin-signin'
       })
     },
     signOut() {
       this.$fire.auth.signOut()
-    },
-  },
+    }
+  }
 }
 </script>
 
 <style lang="scss">
 .s-l-admin {
   &__main {
-    padding: 80px;
+    padding: 80px 30px;
+
+    @include screen-pc {
+      padding: 80px;
+    }
   }
 }
 </style>
